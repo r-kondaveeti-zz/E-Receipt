@@ -9,19 +9,47 @@
 import UIKit
 import Photos
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
 
     @IBOutlet weak var mainLabel: UILabel!
     @IBOutlet weak var uploadButton: UIButton!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var shadowLable: UILabel!
-    @IBOutlet var image: UIImageView!
+    @IBOutlet weak var image: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.stylizeUI()
-//        self.photoAuthorization()
+    }
+    
+    @IBAction func didPressUpload(_ sender: Any) {
         
+        let imagePickerController = UIImagePickerController()
+        imagePickerController.delegate = self
+        let actionSheet = UIAlertController(title: "Photo Source", message: "Choose a source", preferredStyle: .actionSheet)
+        actionSheet.addAction(UIAlertAction(title: "Camera", style: .default, handler: {
+            (action: UIAlertAction) in
+            imagePickerController.sourceType = .camera
+            self.present(imagePickerController, animated: true, completion: nil)
+        }))
+        actionSheet.addAction(UIAlertAction(title: "Photo Library", style: .default, handler: {
+            (action: UIAlertAction) in
+            imagePickerController.sourceType = .photoLibrary
+            self.present(imagePickerController, animated: true, completion: nil)
+        }))
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            
+        self.present(actionSheet, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        let image = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
+        self.image.image = image;
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
     }
     
     func stylizeUI() {
@@ -45,64 +73,64 @@ class ViewController: UIViewController {
         self.shadowLable.layer.shadowRadius = 4.0
     }
     
-    func photoAuthorization() {
-        let status = PHPhotoLibrary.authorizationStatus()
-        switch status {
-        case .authorized:
-            //do loading
-            print("do loading")
-            self.image.image = loadImage()
-        case .notDetermined:
-            PHPhotoLibrary.requestAuthorization({ status in
-                switch status {
-                case .authorized:
-                    //do loading
-                    DispatchQueue.main.async {
-                         print("do loading")
-                        self.image.image =  self.loadImage()
-                    }
-                case .notDetermined:
-                    break
-                case .restricted:
-                    print("Photo Auth restricted or denied")
-                case .denied:
-                    print("Photo Auth restricted or denied")
-                @unknown default:
-                    print("default case")
-                }
-            })
-        case .restricted:
-            print("Photo Auth restricted or denied")
-        case .denied:
-            print("Photo Auth restricted or denied")
-        @unknown default:
-            print("default case")
-        }
-    }
-    
-    func loadImage() -> UIImage? {
-        let manager = PHImageManager.default()
-        let fetchResult = PHAsset.fetchAssets(with: .image, options: self.fetchOptions())
-        var image: UIImage? = nil
-        manager.requestImage(for: fetchResult.object(at: 0), targetSize: CGSize(width: 357, height: 265), contentMode: .aspectFill, options: requestOptions()) { img, err  in
-         guard let img = img else { return }
-             image = img
-        }
-        return image
-    }
-    
-    //Will return configured PHFetchOptions class instance
-    private func fetchOptions() -> PHFetchOptions {
-       let fetchOptions = PHFetchOptions()
-       fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
-       return fetchOptions
-    }
-    
-    private func requestOptions() -> PHImageRequestOptions {
-        let requestOptions = PHImageRequestOptions()
-        requestOptions.isSynchronous = true
-        requestOptions.deliveryMode = .highQualityFormat
-        return requestOptions
-    }
+    //    func photoAuthorization() {
+    //        let status = PHPhotoLibrary.authorizationStatus()
+    //        switch status {
+    //        case .authorized:
+    //            //do loading
+    //            print("do loading")
+    //            self.image.image = loadImage()
+    //        case .notDetermined:
+    //            PHPhotoLibrary.requestAuthorization({ status in
+    //                switch status {
+    //                case .authorized:
+    //                    //do loading
+    //                    DispatchQueue.main.async {
+    //                         print("do loading")
+    //                        self.image.image =  self.loadImage()
+    //                    }
+    //                case .notDetermined:
+    //                    break
+    //                case .restricted:
+    //                    print("Photo Auth restricted or denied")
+    //                case .denied:
+    //                    print("Photo Auth restricted or denied")
+    //                @unknown default:
+    //                    print("default case")
+    //                }
+    //            })
+    //        case .restricted:
+    //            print("Photo Auth restricted or denied")
+    //        case .denied:
+    //            print("Photo Auth restricted or denied")
+    //        @unknown default:
+    //            print("default case")
+    //        }
+    //    }
+    //
+    //    func loadImage() -> UIImage? {
+    //        let manager = PHImageManager.default()
+    //        let fetchResult = PHAsset.fetchAssets(with: .image, options: self.fetchOptions())
+    //        var image: UIImage? = nil
+    //        manager.requestImage(for: fetchResult.object(at: 0), targetSize: CGSize(width: 357, height: 265), contentMode: .aspectFill, options: requestOptions()) { img, err  in
+    //         guard let img = img else { return }
+    //             image = img
+    //        }
+    //        return image
+    //    }
+    //
+    //    //Will return configured PHFetchOptions class instance
+    //    private func fetchOptions() -> PHFetchOptions {
+    //       let fetchOptions = PHFetchOptions()
+    //       fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
+    //       return fetchOptions
+    //    }
+    //
+    //    private func requestOptions() -> PHImageRequestOptions {
+    //        let requestOptions = PHImageRequestOptions()
+    //        requestOptions.isSynchronous = true
+    //        requestOptions.deliveryMode = .highQualityFormat
+    //        return requestOptions
+    //    }
 }
 
