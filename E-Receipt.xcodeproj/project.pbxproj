@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		97DBE277E6535FDF923635FE /* Pods_E_Receipt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69F922B530BF6C1EAD53470D /* Pods_E_Receipt.framework */; };
 		993B8372236146B1008DD8BC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993B8371236146B1008DD8BC /* AppDelegate.swift */; };
 		993B8374236146B1008DD8BC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993B8373236146B1008DD8BC /* SceneDelegate.swift */; };
 		993B8376236146B1008DD8BC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993B8375236146B1008DD8BC /* ViewController.swift */; };
@@ -17,6 +18,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3D444DD921EC9C91C1793DBA /* Pods-E-Receipt.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-E-Receipt.release.xcconfig"; path = "Target Support Files/Pods-E-Receipt/Pods-E-Receipt.release.xcconfig"; sourceTree = "<group>"; };
+		69F922B530BF6C1EAD53470D /* Pods_E_Receipt.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_E_Receipt.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		993B836E236146B1008DD8BC /* E-Receipt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "E-Receipt.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		993B8371236146B1008DD8BC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		993B8373236146B1008DD8BC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -26,6 +29,7 @@
 		993B837D236146B4008DD8BC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		993B837F236146B4008DD8BC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		993B8386236353DB008DD8BC /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
+		F7BDFE30A958ADAA195B9EA4 /* Pods-E-Receipt.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-E-Receipt.debug.xcconfig"; path = "Target Support Files/Pods-E-Receipt/Pods-E-Receipt.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -34,6 +38,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				993B8387236353DC008DD8BC /* Photos.framework in Frameworks */,
+				97DBE277E6535FDF923635FE /* Pods_E_Receipt.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -46,6 +51,7 @@
 				993B8370236146B1008DD8BC /* E-Receipt */,
 				993B836F236146B1008DD8BC /* Products */,
 				993B8385236353DB008DD8BC /* Frameworks */,
+				F5F203364BB33A3BAEA11FC5 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -75,8 +81,19 @@
 			isa = PBXGroup;
 			children = (
 				993B8386236353DB008DD8BC /* Photos.framework */,
+				69F922B530BF6C1EAD53470D /* Pods_E_Receipt.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F5F203364BB33A3BAEA11FC5 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				F7BDFE30A958ADAA195B9EA4 /* Pods-E-Receipt.debug.xcconfig */,
+				3D444DD921EC9C91C1793DBA /* Pods-E-Receipt.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -86,9 +103,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 993B8382236146B4008DD8BC /* Build configuration list for PBXNativeTarget "E-Receipt" */;
 			buildPhases = (
+				9BD2106882A7F834723AF689 /* [CP] Check Pods Manifest.lock */,
 				993B836A236146B1008DD8BC /* Sources */,
 				993B836B236146B1008DD8BC /* Frameworks */,
 				993B836C236146B1008DD8BC /* Resources */,
+				FE3C7876AF47E5326166803A /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -144,6 +163,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		9BD2106882A7F834723AF689 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-E-Receipt-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FE3C7876AF47E5326166803A /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-E-Receipt/Pods-E-Receipt-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-E-Receipt/Pods-E-Receipt-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-E-Receipt/Pods-E-Receipt-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		993B836A236146B1008DD8BC /* Sources */ = {
@@ -294,6 +355,7 @@
 		};
 		993B8383236146B4008DD8BC /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F7BDFE30A958ADAA195B9EA4 /* Pods-E-Receipt.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -312,6 +374,7 @@
 		};
 		993B8384236146B4008DD8BC /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3D444DD921EC9C91C1793DBA /* Pods-E-Receipt.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

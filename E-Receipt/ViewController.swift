@@ -8,6 +8,7 @@
 
 import UIKit
 import Photos
+import AWSS3
 
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
 
@@ -16,6 +17,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var shadowLable: UILabel!
     @IBOutlet weak var image: UIImageView!
+    
+     var localPath: URL!
+     let transfermanager = AWSS3TransferManager.default()
+     let S3BucketName = "e-receipt"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,6 +50,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         let image = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
         self.image.image = image;
+        self.saveAndQuit()
         picker.dismiss(animated: true, completion: nil)
     }
     
@@ -132,5 +138,32 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     //        requestOptions.deliveryMode = .highQualityFormat
     //        return requestOptions
     //    }
+    
+    private func saveAndQuit() {
+        guard let image = self.image.image else {return}
+        let data = image.pngData()
+               let remoteName = "test.png"
+               let fileURL = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(remoteName)
+               do {
+                   try data?.write(to: fileURL)
+                   localPath = fileURL
+                   let uploadRequest = AWSS3TransferManagerUploadRequest()
+                   uploadRequest?.body = fileURL
+                   uploadRequest?.key = ProcessInfo.processInfo.globallyUniqueString + ".png"
+                   uploadRequest?.bucket = S3BucketName
+                   uploadRequest?.contentType = "image/png"
+                   
+                   let transferManager = AWSS3TransferManager.default()
+                transferManager.upload(uploadRequest!).continueWith { (task) -> AnyObject? in
+                       if let error = task.error {
+                           print("Upload failed (\(error))")
+                       }
+                       return nil
+                   }
+               }
+               catch {
+                   print("File not save failed")
+               }
+    }
 }
 
