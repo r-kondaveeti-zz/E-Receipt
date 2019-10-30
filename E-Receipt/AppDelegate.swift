@@ -9,17 +9,18 @@
 import UIKit
 import AWSCognito
 import AWSCore
+import AWSTextract
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    let identityID = "us-east-2:fc86a2d5-026c-4dc5-aa05-92fef2b3c4a3"
+    let identityID =  "us-east-1:04726819-dd85-47f8-831d-0563035c42a8"
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        let credentialsProvider = AWSCognitoCredentialsProvider(regionType: .USEast2, identityPoolId: identityID)
-        let configuration = AWSServiceConfiguration(region: .USEast2, credentialsProvider: credentialsProvider)
-        
+        let credentialsProvider = AWSCognitoCredentialsProvider(regionType: .USEast1, identityPoolId: identityID)
+        let configuration = AWSServiceConfiguration(region: .USEast1, credentialsProvider: credentialsProvider)
+        AWSTextract.register(with: configuration!, forKey: "USEast1Textract")
         AWSServiceManager.default().defaultServiceConfiguration = configuration
         
         return true

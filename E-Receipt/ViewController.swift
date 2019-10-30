@@ -9,6 +9,7 @@
 import UIKit
 import Photos
 import AWSS3
+import AWSTextract
 
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
 
@@ -18,9 +19,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBOutlet weak var shadowLable: UILabel!
     @IBOutlet weak var image: UIImageView!
     
+     let textract = AWSTextract(forKey: "USEast1Textract")
      var localPath: URL!
      let transfermanager = AWSS3TransferManager.default()
-     let S3BucketName = "e-receipt"
+     let S3BucketName = "yashereceipt"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,7 +52,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         let image = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
         self.image.image = image;
-        self.saveAndQuit()
+        self.saveAndUpload()
         picker.dismiss(animated: true, completion: nil)
     }
     
@@ -79,67 +81,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         self.shadowLable.layer.shadowRadius = 4.0
     }
     
-    //    func photoAuthorization() {
-    //        let status = PHPhotoLibrary.authorizationStatus()
-    //        switch status {
-    //        case .authorized:
-    //            //do loading
-    //            print("do loading")
-    //            self.image.image = loadImage()
-    //        case .notDetermined:
-    //            PHPhotoLibrary.requestAuthorization({ status in
-    //                switch status {
-    //                case .authorized:
-    //                    //do loading
-    //                    DispatchQueue.main.async {
-    //                         print("do loading")
-    //                        self.image.image =  self.loadImage()
-    //                    }
-    //                case .notDetermined:
-    //                    break
-    //                case .restricted:
-    //                    print("Photo Auth restricted or denied")
-    //                case .denied:
-    //                    print("Photo Auth restricted or denied")
-    //                @unknown default:
-    //                    print("default case")
-    //                }
-    //            })
-    //        case .restricted:
-    //            print("Photo Auth restricted or denied")
-    //        case .denied:
-    //            print("Photo Auth restricted or denied")
-    //        @unknown default:
-    //            print("default case")
-    //        }
-    //    }
-    //
-    //    func loadImage() -> UIImage? {
-    //        let manager = PHImageManager.default()
-    //        let fetchResult = PHAsset.fetchAssets(with: .image, options: self.fetchOptions())
-    //        var image: UIImage? = nil
-    //        manager.requestImage(for: fetchResult.object(at: 0), targetSize: CGSize(width: 357, height: 265), contentMode: .aspectFill, options: requestOptions()) { img, err  in
-    //         guard let img = img else { return }
-    //             image = img
-    //        }
-    //        return image
-    //    }
-    //
-    //    //Will return configured PHFetchOptions class instance
-    //    private func fetchOptions() -> PHFetchOptions {
-    //       let fetchOptions = PHFetchOptions()
-    //       fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
-    //       return fetchOptions
-    //    }
-    //
-    //    private func requestOptions() -> PHImageRequestOptions {
-    //        let requestOptions = PHImageRequestOptions()
-    //        requestOptions.isSynchronous = true
-    //        requestOptions.deliveryMode = .highQualityFormat
-    //        return requestOptions
-    //    }
-    
-    private func saveAndQuit() {
+    private func saveAndUpload() {
         guard let image = self.image.image else {return}
         let data = image.pngData()
                let remoteName = "test.png"
@@ -149,15 +91,16 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                    localPath = fileURL
                    let uploadRequest = AWSS3TransferManagerUploadRequest()
                    uploadRequest?.body = fileURL
-                   uploadRequest?.key = ProcessInfo.processInfo.globallyUniqueString + ".png"
+                   let objectKey = ProcessInfo.processInfo.globallyUniqueString + ".png"
+                   uploadRequest?.key = objectKey
                    uploadRequest?.bucket = S3BucketName
                    uploadRequest?.contentType = "image/png"
-                   
                    let transferManager = AWSS3TransferManager.default()
-                transferManager.upload(uploadRequest!).continueWith { (task) -> AnyObject? in
+                   transferManager.upload(uploadRequest!).continueWith { (task) -> AnyObject? in
                        if let error = task.error {
                            print("Upload failed (\(error))")
                        }
+                       self.sendToTextract(name: objectKey)
                        return nil
                    }
                }
@@ -165,5 +108,34 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                    print("File not save failed")
                }
     }
+    //Takes document name (object name) of the file and return text
+    private func sendToTextract(name: String) {
+        print(name)
+        let s3Object = AWSTextractS3Object()
+        s3Object?.bucket = self.S3BucketName
+        print(textract.configuration.regionType.rawValue)
+        s3Object?.name = name
+        let request: AWSTextractDetectDocumentTextRequest = AWSTextractDetectDocumentTextRequest()
+        let document = AWSTextractDocument()
+        document?.s3Object = s3Object
+        request.document = document
+        textract.detectDocumentText(request).continueWith { (task) -> Any? in
+        guard let result = task.result else {
+            let error =  task.error as NSError?
+            print("Should not produce error: \(error.debugDescription)")
+            return nil
+        }
+        // Work with your result here
+           let blocks = result.blocks
+            for block in blocks! {
+                if let text = block.text {
+                    print(text)
+                }
+            }
+            
+        return nil
+        }
+    }
+
 }
 
