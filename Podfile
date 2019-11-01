@@ -8,6 +8,8 @@ target 'E-Receipt' do
     pod 'AWSMobileClient'
     pod 'AWSS3'
     pod 'AWSCognito'
+    pod 'AWSUserPoolsSignIn'
+    pod 'AWSAuthUI'
+    pod 'AWSMobileClient'
   # Pods for E-Receipt
-
 end

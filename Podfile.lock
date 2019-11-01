@@ -1,6 +1,9 @@
 PODS:
   - AWSAuthCore (2.12.0):
     - AWSCore (= 2.12.0)
+  - AWSAuthUI (2.12.0):
+    - AWSAuthCore (= 2.12.0)
+    - AWSCore (= 2.12.0)
   - AWSCognito (2.12.0):
     - AWSCore (= 2.12.0)
   - AWSCognitoIdentityProvider (2.12.0):
@@ -15,16 +18,22 @@ PODS:
     - AWSCore (= 2.12.0)
   - AWSTextract (2.12.0):
     - AWSCore (= 2.12.0)
+  - AWSUserPoolsSignIn (2.12.0):
+    - AWSAuthCore (= 2.12.0)
+    - AWSCognitoIdentityProvider (= 2.12.0)
 
 DEPENDENCIES:
+  - AWSAuthUI
   - AWSCognito
   - AWSMobileClient
   - AWSS3
   - AWSTextract
+  - AWSUserPoolsSignIn
 
 SPEC REPOS:
   trunk:
     - AWSAuthCore
+    - AWSAuthUI
     - AWSCognito
     - AWSCognitoIdentityProvider
     - AWSCognitoIdentityProviderASF
@@ -32,9 +41,11 @@ SPEC REPOS:
     - AWSMobileClient
     - AWSS3
     - AWSTextract
+    - AWSUserPoolsSignIn
 
 SPEC CHECKSUMS:
   AWSAuthCore: 547617e1ed76a699b56018105133e23f0fddc8e2
+  AWSAuthUI: 198b81978538bca9fa17621f567154763afc9b13
   AWSCognito: 298d5ac707abe701025361ac925063601d18f23e
   AWSCognitoIdentityProvider: a4a37ca74ecce30ec534647e6aae89c7aff3348c
   AWSCognitoIdentityProviderASF: f94f1a502e72ef3d0a1de93e10bf7a79c8698118
@@ -42,7 +53,8 @@ SPEC CHECKSUMS:
   AWSMobileClient: 88d0584901dbe6e7917267c657ff980c9bfd2363
   AWSS3: 4cd97615f756098bfa449e99bf0acc7bc6a31510
   AWSTextract: 12c1a34f52f092e855535e9532dadc8d2d61f48d
+  AWSUserPoolsSignIn: 070293a3e73401bbc35fc639244b555b9d9f1aa8
 
-PODFILE CHECKSUM: 5df1eb12cf88fbfbd944bb5c075f2506e5bbc54b
+PODFILE CHECKSUM: a7b56057f92bc6ce31ecdecba26de06fc88ce8aa
 
 COCOAPODS: 1.8.1

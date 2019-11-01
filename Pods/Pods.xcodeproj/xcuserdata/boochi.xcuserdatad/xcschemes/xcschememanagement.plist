@@ -9,6 +9,16 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>AWSAuthUI-AWSAuthUI.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>AWSAuthUI.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>AWSCognito.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -40,6 +50,16 @@
 			<false/>
 		</dict>
 		<key>AWSTextract.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>AWSUserPoolsSignIn-AWSUserPoolsSignIn.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>AWSUserPoolsSignIn.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
