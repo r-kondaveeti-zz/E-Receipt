@@ -23,11 +23,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         AWSTextract.register(with: configuration!, forKey: "USEast1Textract")
         AWSServiceManager.default().defaultServiceConfiguration = configuration
         
+        UINavigationBar.appearance().setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+        UINavigationBar.appearance().shadowImage = UIImage()
+        
         return true
     }
 
     // MARK: UISceneSession Lifecycle
-
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
         // Called when a new scene session is being created.
         // Use this method to select a configuration to create the new scene with.

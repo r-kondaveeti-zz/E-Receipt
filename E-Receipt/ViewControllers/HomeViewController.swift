@@ -5,7 +5,6 @@
 //  Created by Radithya Reddy on 10/23/19.
 //  Copyright © 2019 Yash Tech. All rights reserved.
 
-
 //TODO Implement login using user pools
 //TODO create user settings pane with user details and logout button
 import UIKit
@@ -13,7 +12,7 @@ import Photos
 import AWSS3
 import AWSTextract
 
-class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
 
     @IBOutlet weak var imageLabel: UILabel!
     @IBOutlet weak var shadowLabelImage: UILabel!
@@ -24,10 +23,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBOutlet weak var shadowLable: UILabel!
     @IBOutlet weak var image: UIImageView!
     
-     let textract = AWSTextract(forKey: "USEast1Textract")
-     var localPath: URL!
-     let transfermanager = AWSS3TransferManager.default()
-     let S3BucketName = "yashereceipt"
+    let textract = AWSTextract(forKey: "USEast1Textract")
+    var localPath: URL!
+    let transfermanager = AWSS3TransferManager.default()
+    let S3BucketName = "yashereceipt"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -92,7 +91,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                }
     }
     
-    //Takes document name (object name) of the file and return text
+    //Takes document name (object name) of the file and returns text
     private func sendToTextract(name: String) {
         var textFromTextract = ""
         print(name)
@@ -140,34 +139,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         else { return false }
     }
 
-
     private func stylizeUI() {
-        self.mainLabel.layer.shadowColor = UIColor.lightGray.cgColor
-        self.mainLabel.layer.shadowOffset = CGSize(width: -5, height: 5)
-        self.mainLabel.layer.shadowOpacity = 0.5
-        self.mainLabel.layer.shadowRadius = 4.0
-        self.uploadButton.layer.cornerRadius = 10
-        self.uploadButton.layer.masksToBounds = false
-        self.uploadButton.layer.shadowColor = UIColor.lightGray.cgColor
-        self.uploadButton.layer.shadowOffset = CGSize(width: -5, height: 5)
-        self.uploadButton.layer.shadowOpacity = 0.5
-        self.uploadButton.layer.shadowRadius = 4.0
-        self.descriptionLabel.layer.cornerRadius = 10
-        self.descriptionLabel.layer.masksToBounds = true
-        self.shadowLable.layer.cornerRadius = 10
-        self.shadowLable.layer.masksToBounds = false
-        self.shadowLable.layer.shadowColor = UIColor.lightGray.cgColor
-        self.shadowLable.layer.shadowOffset = CGSize(width: -5, height: 5)
-        self.shadowLable.layer.shadowOpacity = 45
-        self.shadowLable.layer.shadowRadius = 4.0
-        self.imageLabel.layer.cornerRadius = 10
-        self.imageLabel.layer.masksToBounds = true
-        self.shadowLabelImage.layer.cornerRadius = 10
-        self.shadowLabelImage.layer.masksToBounds = false
-        self.shadowLabelImage.layer.shadowColor = UIColor.lightGray.cgColor
-        self.shadowLabelImage.layer.shadowOffset = CGSize(width: -5, height: 5)
-        self.shadowLabelImage.layer.shadowOpacity = 45
-        self.shadowLabelImage.layer.shadowRadius = 4.0
+        Utilities.stylizeLabel(visibleLabel: mainLabel)
+        Utilities.stylizeButtonAndShadow(uploadButton)
+        Utilities.stylizeLabelAndShadow(visibleLabel: descriptionLabel, shadowLabel: shadowLable)
+        Utilities.stylizeLabelAndShadow(visibleLabel: imageLabel, shadowLabel: shadowLabelImage)
         self.image.layer.cornerRadius = 10;
         self.image.layer.masksToBounds = true;
     }
