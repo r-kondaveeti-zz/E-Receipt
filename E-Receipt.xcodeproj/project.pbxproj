@@ -23,6 +23,7 @@
 		99679D03236FEB97002AC1A3 /* awsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 99679D02236FEB97002AC1A3 /* awsconfiguration.json */; };
 		99679D05236FF150002AC1A3 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99679D04236FF150002AC1A3 /* Constants.swift */; };
 		99679D07237080D3002AC1A3 /* ConfirmAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99679D06237080D3002AC1A3 /* ConfirmAccountViewController.swift */; };
+		99EB324C2371D4B900086440 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99EB324B2371D4B900086440 /* HistoryViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +46,7 @@
 		99679D02236FEB97002AC1A3 /* awsconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = awsconfiguration.json; path = ../../awsconfiguration.json; sourceTree = "<group>"; };
 		99679D04236FF150002AC1A3 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Constants.swift; path = ../../../../Downloads/CustomLoginDemo/CustomLoginDemo/Helpers/Constants.swift; sourceTree = "<group>"; };
 		99679D06237080D3002AC1A3 /* ConfirmAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmAccountViewController.swift; sourceTree = "<group>"; };
+		99EB324B2371D4B900086440 /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		F7BDFE30A958ADAA195B9EA4 /* Pods-E-Receipt.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-E-Receipt.debug.xcconfig"; path = "Target Support Files/Pods-E-Receipt/Pods-E-Receipt.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -122,6 +124,7 @@
 				993B8375236146B1008DD8BC /* HomeViewController.swift */,
 				99679D00236FE4F0002AC1A3 /* NavigationController.swift */,
 				99679D06237080D3002AC1A3 /* ConfirmAccountViewController.swift */,
+				99EB324B2371D4B900086440 /* HistoryViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -256,6 +259,7 @@
 				99679D01236FE4F0002AC1A3 /* NavigationController.swift in Sources */,
 				993B8376236146B1008DD8BC /* HomeViewController.swift in Sources */,
 				993B8372236146B1008DD8BC /* AppDelegate.swift in Sources */,
+				99EB324C2371D4B900086440 /* HistoryViewController.swift in Sources */,
 				99679CF8236F629F002AC1A3 /* Utilities.swift in Sources */,
 				99679CFE236FC114002AC1A3 /* ViewController.swift in Sources */,
 				99679CFA236FBFB0002AC1A3 /* LoginViewController.swift in Sources */,

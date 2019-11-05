@@ -6,6 +6,8 @@
 //  Copyright © 2019 Yash Tech. All rights reserved.
 //
 
+
+// MARK: get the username from the Login
 import Foundation
 import UIKit
 import AWSMobileClient
@@ -16,7 +18,7 @@ class ConfirmAccountViewController: UIViewController {
     @IBOutlet weak var confirmCodeTextfield: UITextField!
     @IBOutlet weak var confirmAccountButton: UIButton!
     @IBAction func didPressConfirmAccount(_ sender: Any) {
-        AWSMobileClient.default().confirmSignUp(username: SignUpViewController().firstNameTextfield.text!, confirmationCode: confirmCodeTextfield.text!) { (signUpResult, error) in
+        AWSMobileClient.default().confirmSignUp(username: userName, confirmationCode: confirmCodeTextfield.text!) { (signUpResult, error) in
             if let signUpResult = signUpResult {
                 switch(signUpResult.signUpConfirmationState) {
                 case .confirmed:
@@ -50,3 +52,5 @@ class ConfirmAccountViewController: UIViewController {
         view.window?.makeKeyAndVisible()
     }
 }
+
+

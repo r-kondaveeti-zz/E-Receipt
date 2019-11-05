@@ -10,7 +10,7 @@
         <!--Home View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="HomeViewController" customModule="E_Receipt" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HomeVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" customClass="HomeViewController" customModule="E_Receipt" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -23,10 +23,23 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Welcome" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4wb-ic-2v6">
-                                <rect key="frame" x="16" y="44" width="288" height="105"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4wb-ic-2v6">
+                                <rect key="frame" x="8" y="44" width="151" height="109"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="HiraginoSans-W6" family="Hiragino Sans" pointSize="29"/>
+                                <attributedString key="attributedText">
+                                    <fragment content="Welcome,">
+                                        <attributes>
+                                            <font key="NSFont" size="29" name="HiraginoSans-W6"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineSpacing="10" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jtw-Sb-f5M">
+                                <rect key="frame" x="170" y="47" width="192" height="109"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="HiraginoSans-W6" family="Hiragino Sans" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -34,13 +47,13 @@
                                 <rect key="frame" x="16" y="184.66666666666666" width="20" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <color key="tintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="History" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="jEz-DC-x6q">
                                 <rect key="frame" x="44" y="185" width="100" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="17"/>
-                                <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="person.crop.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="cHI-Qz-by7">
@@ -129,6 +142,16 @@
                                 </attributedString>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="plus.rectangle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Qmv-b5-44R">
+                                <rect key="frame" x="154" y="676" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="minus.rectangle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="IYy-KM-qUf">
+                                <rect key="frame" x="16" y="675.33333333333337" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.87450980392156863" green="0.90196078431372551" blue="0.9137254901960784" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -136,23 +159,26 @@
                     <navigationItem key="navigationItem" id="s9q-kJ-Y63"/>
                     <connections>
                         <outlet property="descriptionLabel" destination="EA0-Fo-5Tu" id="3qs-x2-c13"/>
+                        <outlet property="historyLabel" destination="49f-K4-5QV" id="oUs-jb-d0J"/>
                         <outlet property="image" destination="kqn-9s-Aqz" id="0Zz-Tk-fZc"/>
                         <outlet property="imageLabel" destination="I0U-BS-h1O" id="ePG-8O-ryZ"/>
                         <outlet property="mainLabel" destination="49f-K4-5QV" id="0My-f7-UZ7"/>
+                        <outlet property="personIconImage" destination="cHI-Qz-by7" id="46K-Ia-1Wp"/>
                         <outlet property="shadowLabelImage" destination="cnC-uo-CvS" id="dir-3z-6KX"/>
                         <outlet property="shadowLable" destination="hbB-27-ojE" id="trF-3k-ha7"/>
                         <outlet property="textractLabel" destination="Qxd-Pk-yR0" id="umP-sh-bll"/>
                         <outlet property="uploadButton" destination="mTq-Zd-nj6" id="J9F-DO-yJp"/>
+                        <outlet property="userNameLabel" destination="jtw-Sb-f5M" id="lQe-iC-HOy"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1218" y="-21"/>
+            <point key="canvasLocation" x="1216.8" y="-21.428571428571431"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="hMW-GX-EhP">
             <objects>
-                <viewController storyboardIdentifier="loginVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="7az-kc-U2i" customClass="LoginViewController" customModule="E_Receipt" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="7az-kc-U2i" customClass="LoginViewController" customModule="E_Receipt" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="07J-bf-Psh">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="724"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -160,7 +186,7 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="ZKJ-Ko-OGH">
                                 <rect key="frame" x="40" y="40" width="295" height="304.33333333333331"/>
                                 <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0Pe-Tb-0wW">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="First Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0Pe-Tb-0wW">
                                         <rect key="frame" x="0.0" y="0.0" width="295" height="50"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
@@ -319,12 +345,28 @@
                                     <constraint firstItem="NAr-dc-IBa" firstAttribute="height" secondItem="MLo-zl-pOi" secondAttribute="height" id="9xr-6h-8GM"/>
                                 </constraints>
                             </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="E-Receipt" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fWa-Qo-rxS">
+                                <rect key="frame" x="40" y="60" width="295" height="90"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="90" id="lDG-72-gQq"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HiraginoSans-W6" family="Hiragino Sans" pointSize="27"/>
+                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="1024" translatesAutoresizingMaskIntoConstraints="NO" id="8fY-px-Ar0">
+                                <rect key="frame" x="82" y="143" width="211" height="100"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="aXT-kI-aXT" firstAttribute="trailing" secondItem="fWa-Qo-rxS" secondAttribute="trailing" constant="40" id="6OZ-H4-fJZ"/>
                             <constraint firstItem="Ln5-Tb-aa9" firstAttribute="leading" secondItem="aXT-kI-aXT" secondAttribute="leading" constant="40" id="Bzr-Dd-1cW"/>
                             <constraint firstItem="aXT-kI-aXT" firstAttribute="trailing" secondItem="Ln5-Tb-aa9" secondAttribute="trailing" constant="40" id="YhX-bL-Bmx"/>
                             <constraint firstItem="aXT-kI-aXT" firstAttribute="bottom" secondItem="Ln5-Tb-aa9" secondAttribute="bottom" constant="40" id="e5R-XT-Ee8"/>
+                            <constraint firstItem="fWa-Qo-rxS" firstAttribute="top" secondItem="aXT-kI-aXT" secondAttribute="top" constant="60" id="ede-U8-T9z"/>
+                            <constraint firstItem="fWa-Qo-rxS" firstAttribute="leading" secondItem="aXT-kI-aXT" secondAttribute="leading" constant="40" id="tsV-kb-ASr"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="aXT-kI-aXT"/>
                     </view>
@@ -360,7 +402,7 @@
         <!--Confirm Account View Controller-->
         <scene sceneID="TyQ-5b-QVB">
             <objects>
-                <viewController storyboardIdentifier="confirmAccountVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="oec-c2-q6A" customClass="ConfirmAccountViewController" customModule="E_Receipt" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ConfirmAccountVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="oec-c2-q6A" customClass="ConfirmAccountViewController" customModule="E_Receipt" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="i7b-ZW-Ueb">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -368,7 +410,7 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="9p8-qU-ON7">
                                 <rect key="frame" x="40" y="84" width="295" height="250"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please enter the confirm code " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B2c-Am-SrF">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B2c-Am-SrF">
                                         <rect key="frame" x="0.0" y="0.0" width="295" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="pwZ-Ll-zXO"/>
@@ -385,9 +427,6 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wZs-TV-VgY">
                                         <rect key="frame" x="0.0" y="200" width="295" height="50"/>
                                         <state key="normal" title="Confirm Account"/>
-                                        <connections>
-                                            <action selector="didPressConfirmAccount:" destination="oec-c2-q6A" eventType="touchUpInside" id="CJf-37-j1a"/>
-                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -404,18 +443,52 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="IB6-WE-rzy"/>
                     </view>
-                    <connections>
-                        <outlet property="confirmAccountButton" destination="wZs-TV-VgY" id="mRR-Jh-Rmz"/>
-                        <outlet property="confirmCodeTextfield" destination="aJo-dv-5d0" id="Ufh-cA-7Qk"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xEo-BJ-UxO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1188" y="-752"/>
         </scene>
+        <!--History View Controller-->
+        <scene sceneID="0Z8-Az-shc">
+            <objects>
+                <viewController storyboardIdentifier="HistoryVC" title="History View Controller" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Blc-U9-Kqb" customClass="HistoryViewController" customModule="E_Receipt" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="JmA-fV-mao">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" id="51P-Vw-PrA">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="221"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" name="Kailasa-Bold" family="Kailasa" pointSize="27"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="History" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gVK-Yb-BmN">
+                                <rect key="frame" x="239" y="95" width="120" height="105"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="HiraginoSans-W6" family="Hiragino Sans" pointSize="29"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.87450980392156863" green="0.90196078431372551" blue="0.9137254901960784" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <viewLayoutGuide key="safeArea" id="HAv-6H-g63"/>
+                    </view>
+                    <connections>
+                        <outlet property="mainLabel" destination="51P-Vw-PrA" id="JCz-3O-nGL"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6D0-BK-7zo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2237.5999999999999" y="-21.428571428571431"/>
+        </scene>
     </scenes>
     <resources>
+        <image name="1024" width="1024" height="1024"/>
         <image name="calendar" catalog="system" width="64" height="54"/>
+        <image name="minus.rectangle.fill" catalog="system" width="64" height="48"/>
         <image name="person.crop.circle" catalog="system" width="64" height="62"/>
+        <image name="plus.rectangle.fill" catalog="system" width="64" height="48"/>
     </resources>
 </document>

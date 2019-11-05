@@ -19,11 +19,19 @@ class SignUpViewController: UIViewController {
     @IBOutlet weak var signUpButton: UIButton!
     @IBOutlet weak var errorLabel: UILabel!
     
+    
+    override func viewDidLoad() {
+        setUpElements()
+    }
+    
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
         super.touchesBegan(touches, with: event)
     }
     
+    
+    //Creates an account for the user if the information provided is according to standards and if the username doesn't exist.
     @IBAction func didPressSignUp(_ sender: Any) {
         view.endEditing(true)
         let error = validateFields()
@@ -66,20 +74,20 @@ class SignUpViewController: UIViewController {
         }
     }
     
+    
     func showError(_ message:String) {
         errorLabel.text = message
         errorLabel.alpha = 1
     }
     
+    
     func transitionToConfirmAccount() {
         let confirmAccountViewController = storyboard?.instantiateViewController(identifier: Constants.Storyboard.confirmAccountViewController) as? ConfirmAccountViewController
         view.window?.rootViewController = confirmAccountViewController
+        confirmAccountViewController?.userName = firstNameTextfield.text!.trimmingCharacters(in: .whitespacesAndNewlines)
         view.window?.makeKeyAndVisible()
     }
     
-    override func viewDidLoad() {
-        setUpElements()
-    }
     
     // Check the fields and validate that the data is correct. If everything is correct, this method returns nil. Otherwise, it returns the error message
     func validateFields() -> String? {
@@ -96,6 +104,7 @@ class SignUpViewController: UIViewController {
         return nil
     }
    
+    
     func setUpElements() {
         errorLabel.alpha = 0
         Utilities.styleTextField(firstNameTextfield)

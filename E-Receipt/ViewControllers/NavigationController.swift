@@ -11,11 +11,10 @@ import UIKit
 
 class NavigationController: UINavigationController {
     
-    
-       override func viewWillAppear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
            let backButton: UIBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(back))
                self.navigationItem.leftBarButtonItem = backButton
-        self.navigationController?.navigationBar.shadowImage = UIImage()
+       self.navigationController?.navigationBar.shadowImage = UIImage()
     }
     
     override func viewDidLoad() {
@@ -23,8 +22,6 @@ class NavigationController: UINavigationController {
         
     }
        
-       @objc func back() {
+    @objc func back() {
        self.dismiss(animated: true, completion: nil) }
-       
-    
 }

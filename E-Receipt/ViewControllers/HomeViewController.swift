@@ -5,15 +5,18 @@
 //  Created by Radithya Reddy on 10/23/19.
 //  Copyright © 2019 Yash Tech. All rights reserved.
 
-//TODO Implement login using user pools
-//TODO create user settings pane with user details and logout button
+//MARK: create user settings pane with user details and logout button
+//MARK: Check user status
 import UIKit
 import Photos
 import AWSS3
 import AWSTextract
+import AWSMobileClient
 
 class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
 
+    @IBOutlet weak var userNameLabel: UILabel!
+    @IBOutlet weak var historyLabel: UILabel!
     @IBOutlet weak var imageLabel: UILabel!
     @IBOutlet weak var shadowLabelImage: UILabel!
     @IBOutlet weak var textractLabel: UILabel!
@@ -22,16 +25,31 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var shadowLable: UILabel!
     @IBOutlet weak var image: UIImageView!
+
+    @IBOutlet weak var personIconImage: UIImageView!
     
     let textract = AWSTextract(forKey: "USEast1Textract")
     var localPath: URL!
     let transfermanager = AWSS3TransferManager.default()
     let S3BucketName = "yashereceipt"
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        userNameLabel.text = "\(AWSMobileClient.default().username!)"
         self.stylizeUI()
+        
+        //Make person icon tapable
+        let tapGestureIcon = UITapGestureRecognizer(target: self, action: #selector(HomeViewController.personIconImageTapped(gesture:)))
+        personIconImage.addGestureRecognizer(tapGestureIcon)
+        personIconImage.isUserInteractionEnabled = true
+        
+        //Make history label tapable
+        let tapGestureHistoryLabel = UITapGestureRecognizer(target: self, action: #selector(HomeViewController.historyLabelTapped(gesture:)))
+        historyLabel.addGestureRecognizer(tapGestureHistoryLabel)
+        historyLabel.isUserInteractionEnabled = true
     }
+    
     
     @IBAction func didPressUpload(_ sender: Any) {
         let imagePickerController = UIImagePickerController()
@@ -52,6 +70,7 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         self.present(actionSheet, animated: true, completion: nil)
     }
     
+    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         let image = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
         self.image.image = image;
@@ -59,10 +78,13 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         picker.dismiss(animated: true, completion: nil)
     }
     
+    
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
     }
     
+    
+    //Saves the document and uploads it to the s3 and invokes sendToTextract()
     private func saveAndUpload() {
         guard let image = self.image.image else {return}
         let data = image.pngData()
@@ -91,6 +113,7 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                }
     }
     
+    
     //Takes document name (object name) of the file and returns text
     private func sendToTextract(name: String) {
         var textFromTextract = ""
@@ -114,7 +137,6 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                 if let text = block.text {
                     textFromTextract = textFromTextract + text
                     print(text)
-                    
                     DispatchQueue.main.async {
                                    if self.getTotalCost(text: text) {
                                       print("in the dispatch")
@@ -122,12 +144,12 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                                     else { self.textractLabel.text = "Total: $"+text }
                         }
                     }
-                    
                 }
             }
         return nil
         }
     }
+    
     
     //Takes the textracted input and gets the total cost
     private func getTotalCost(text: String) -> Bool {
@@ -138,7 +160,35 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         }
         else { return false }
     }
+    
+    
+    @objc func personIconImageTapped(gesture: UIGestureRecognizer) {
+        if (gesture.view as? UIImageView) != nil {
+            print("Image Tapped")
+            AWSMobileClient.default().signOut()
+            self.transitionToLogin()
+        }
+    }
+    
+    @objc func historyLabelTapped(gesture: UIGestureRecognizer) {
+        
+        if (gesture.view as? UIImageView) != nil {
+                   print("Image Tapped")
+                   AWSMobileClient.default().signOut()
+                   self.transitionToLogin()
+        } else {
+            transitionToHistory()
+        }
+    }
+    
+    
+    func transitionToLogin() {
+        let loginViewController = storyboard?.instantiateViewController(identifier: Constants.Storyboard.loginViewController) as? LoginViewController
+        view.window?.rootViewController = loginViewController
+        view.window?.makeKeyAndVisible()
+    }
 
+    
     private func stylizeUI() {
         Utilities.stylizeLabel(visibleLabel: mainLabel)
         Utilities.stylizeButtonAndShadow(uploadButton)
@@ -146,6 +196,12 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         Utilities.stylizeLabelAndShadow(visibleLabel: imageLabel, shadowLabel: shadowLabelImage)
         self.image.layer.cornerRadius = 10;
         self.image.layer.masksToBounds = true;
+    }
+    
+    func transitionToHistory() {
+        let historyViewController = storyboard?.instantiateViewController(identifier: Constants.Storyboard.historyViewController) as? HistoryViewController
+        view.window?.rootViewController = historyViewController
+        view.window?.makeKeyAndVisible()
     }
 
 }
