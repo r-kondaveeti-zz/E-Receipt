@@ -45,31 +45,31 @@ class SignUpViewController: UIViewController {
             let email = emailTextfield.text!.trimmingCharacters(in: .whitespacesAndNewlines)
             let password = passwordTextfield.text!.trimmingCharacters(in: .whitespacesAndNewlines)
             AWSMobileClient.default().signUp(username: firstName,
-                                                    password: password,
-                                                    userAttributes: ["email": email, "phone_number": "+1973123456"]) { (signUpResult, error) in
-                if let signUpResult = signUpResult {
-                    switch(signUpResult.signUpConfirmationState) {
-                    case .confirmed:
-                        print("User is signed up and confirmed.")
-                    case .unconfirmed:
-                        print("User is not confirmed and needs verification via \(signUpResult.codeDeliveryDetails!.deliveryMedium) sent at \(signUpResult.codeDeliveryDetails!.destination!)")
-                        DispatchQueue.main.async {
-                            self.transitionToConfirmAccount()
-                        }
-                    case .unknown:
-                        print("Unexpected case")
-                    }
-                } else if let error = error {
-                    if let error = error as? AWSMobileClientError {
-                        switch(error) {
-                        case .usernameExists(let message):
-                            print(message)
-                        default:
-                            break
-                        }
-                    }
-                    print("\(error.localizedDescription)")
-                }
+                                             password: password,
+                                             userAttributes: ["email": email, "phone_number": "+1973123456"]) { (signUpResult, error) in
+                                                if let signUpResult = signUpResult {
+                                                    switch(signUpResult.signUpConfirmationState) {
+                                                    case .confirmed:
+                                                        print("User is signed up and confirmed.")
+                                                    case .unconfirmed:
+                                                        print("User is not confirmed and needs verification via \(signUpResult.codeDeliveryDetails!.deliveryMedium) sent at \(signUpResult.codeDeliveryDetails!.destination!)")
+                                                        DispatchQueue.main.async {
+                                                            self.transitionToConfirmAccount()
+                                                        }
+                                                    case .unknown:
+                                                        print("Unexpected case")
+                                                    }
+                                                } else if let error = error {
+                                                    if let error = error as? AWSMobileClientError {
+                                                        switch(error) {
+                                                        case .usernameExists(let message):
+                                                            print(message)
+                                                        default:
+                                                            break
+                                                        }
+                                                    }
+                                                    print("\(error.localizedDescription)")
+                                                }
             }
         }
     }
@@ -103,7 +103,7 @@ class SignUpViewController: UIViewController {
         }
         return nil
     }
-   
+    
     
     func setUpElements() {
         errorLabel.alpha = 0

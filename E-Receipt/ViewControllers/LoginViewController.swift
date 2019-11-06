@@ -27,19 +27,19 @@ class LoginViewController: UIViewController {
             let email = emailTextfield.text!.trimmingCharacters(in: .whitespacesAndNewlines)
             let password = passwordTextfield.text!.trimmingCharacters(in: .whitespacesAndNewlines)
             AWSMobileClient.default().signIn(username: email, password: password) { (signInResult, error) in
-            if let error = error  {
-                self.showError(error: "Please enter valid credentials")
-                print("----> \(error.localizedDescription)")
-            } else if let signInResult = signInResult {
-                switch (signInResult.signInState) {
-                case .signedIn:
-                    print("User is signed in.")
-                    DispatchQueue.main.async {
-                        self.transitionToHome()
-                    }
-                case .smsMFA:
+                if let error = error  {
+                    self.showError(error: "Please enter valid credentials")
+                    print("----> \(error.localizedDescription)")
+                } else if let signInResult = signInResult {
+                    switch (signInResult.signInState) {
+                    case .signedIn:
+                        print("User is signed in.")
+                        DispatchQueue.main.async {
+                            self.transitionToHome()
+                        }
+                    case .smsMFA:
                         print("SMS message sent to \(signInResult.codeDetails!.destination!)")
-                default:
+                    default:
                         print("Sign In needs info which is not et supported.")
                     }
                 }

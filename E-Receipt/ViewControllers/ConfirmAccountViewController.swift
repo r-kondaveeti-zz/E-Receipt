@@ -17,6 +17,7 @@ class ConfirmAccountViewController: UIViewController {
     var userName: String!
     @IBOutlet weak var confirmCodeTextfield: UITextField!
     @IBOutlet weak var confirmAccountButton: UIButton!
+    
     @IBAction func didPressConfirmAccount(_ sender: Any) {
         AWSMobileClient.default().confirmSignUp(username: userName, confirmationCode: confirmCodeTextfield.text!) { (signUpResult, error) in
             if let signUpResult = signUpResult {

@@ -14,7 +14,6 @@ class HistoryViewController: UIViewController {
     
     @IBOutlet weak var mainLabel: UILabel!
     
-    
     override func viewDidLoad() {
         style()
         print(AWSMobileClient.default().username!)

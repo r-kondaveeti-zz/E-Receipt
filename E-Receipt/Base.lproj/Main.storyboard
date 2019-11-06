@@ -163,7 +163,9 @@
                         <outlet property="image" destination="kqn-9s-Aqz" id="0Zz-Tk-fZc"/>
                         <outlet property="imageLabel" destination="I0U-BS-h1O" id="ePG-8O-ryZ"/>
                         <outlet property="mainLabel" destination="49f-K4-5QV" id="0My-f7-UZ7"/>
+                        <outlet property="minusIcon" destination="IYy-KM-qUf" id="4Ac-rQ-vBZ"/>
                         <outlet property="personIconImage" destination="cHI-Qz-by7" id="46K-Ia-1Wp"/>
+                        <outlet property="plusIcon" destination="Qmv-b5-44R" id="fvO-Ec-kMR"/>
                         <outlet property="shadowLabelImage" destination="cnC-uo-CvS" id="dir-3z-6KX"/>
                         <outlet property="shadowLable" destination="hbB-27-ojE" id="trF-3k-ha7"/>
                         <outlet property="textractLabel" destination="Qxd-Pk-yR0" id="umP-sh-bll"/>
