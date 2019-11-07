@@ -41,7 +41,7 @@ class SignUpViewController: UIViewController {
         else {
             // Create cleaned versions of the data
             let firstName = firstNameTextfield.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-            let lastName = lastNameTextfield.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+//            let lastName = lastNameTextfield.text!.trimmingCharacters(in: .whitespacesAndNewlines)
             let email = emailTextfield.text!.trimmingCharacters(in: .whitespacesAndNewlines)
             let password = passwordTextfield.text!.trimmingCharacters(in: .whitespacesAndNewlines)
             AWSMobileClient.default().signUp(username: firstName,

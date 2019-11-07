@@ -17,11 +17,7 @@ class NavigationController: UINavigationController {
         self.navigationController?.navigationBar.shadowImage = UIImage()
     }
     
-    override func viewDidLoad() {
-        self.navigationController?.navigationBar.shadowImage = UIImage()
-        
-    }
+    override func viewDidLoad() { self.navigationController?.navigationBar.shadowImage = UIImage() }
     
-    @objc func back() {
-        self.dismiss(animated: true, completion: nil) }
+    @objc func back() { self.dismiss(animated: true, completion: nil) }
 }

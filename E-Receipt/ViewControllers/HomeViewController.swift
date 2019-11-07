@@ -5,7 +5,9 @@
 //  Created by Radithya Reddy on 10/23/19.
 //  Copyright © 2019 Yash Tech. All rights reserved.
 
-
+//MARK: Add the images with sucessful total extraction to an Array and totals to a different one --> Done
+//MARK: Pop the array when user hits minus and display the image of the last element in the array and total - poped cost --> Done
+//MARK: When user hits save then write it into the db -->
 import UIKit
 import Photos
 import AWSS3
@@ -27,6 +29,10 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     @IBOutlet weak var plusIcon: UIImageView!
     @IBOutlet weak var personIconImage: UIImageView!
     @IBOutlet weak var minusIcon: UIImageView!
+    
+    var selectedImages = [UIImage]()
+    var costs = [Double]()
+    var totalCost: Double = 0.00
     
     //MARK: S3 and Textract setup -------
     let textract = AWSTextract(forKey: "USEast1Textract")
@@ -56,6 +62,11 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         let tapGesturePlusIcon = UITapGestureRecognizer(target: self, action: #selector(HomeViewController.plusIconImageTapped(gesture:)))
         plusIcon.addGestureRecognizer(tapGesturePlusIcon)
         plusIcon.isUserInteractionEnabled = true
+        
+        //Minus icon label tapable
+        let tapGestureMinusIcon = UITapGestureRecognizer(target: self, action: #selector(HomeViewController.minusIconImageTapped(gesture:)))
+        minusIcon.addGestureRecognizer(tapGestureMinusIcon)
+        minusIcon.isUserInteractionEnabled = true
     }
     
     
@@ -64,24 +75,70 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             
             //MARK: Open ImagePicker
             
-            
             //MARK: Show selected image on the display
-            
             
             //MARK: Send it to textract and get dollar amount
             pickImage()
             
-            
             //MARK: add the image and total to the dictionary
-            
             
         }
     }
     
     
+    @objc func minusIconImageTapped(gesture: UIGestureRecognizer) {
+        if (gesture.view as? UIImageView) != nil {
+            
+            //MARK: If the there is no last Image or Cost display some default image and cost!!
+            if(self.costs.isEmpty || self.selectedImages.isEmpty)  {
+                print("is empty")
+                self.image.image = UIImage.from(color: .white)
+                self.textractLabel.text = "Please select at least one image!"
+                self.costs.removeAll()
+                self.selectedImages.removeAll()
+            } else {
+                
+                //MARK: Pop from selectedImages
+                let _ = self.selectedImages.popLast()
+                
+                //MARK: Make the last image appear on screen
+                self.image.image = self.selectedImages.last
+                
+                //MARK: Pop from costs
+                let lastItemCost = self.costs.popLast()
+                
+                //MARK: Remove the last cost from the total cost
+                self.totalCost -= lastItemCost!
+                
+                //MARK: Make the last cost appear on the screen
+                self.textractLabel.text = "Total: $\(self.totalCost)"
+                
+            }
+        }
+    }
+    
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        for cost in costs {
+            print("The costs of the recipt --- \(cost)" )
+        }
+    }
+    
+    
+    
     //MARK: Saves the document and uploads it to the s3 and invokes sendToTextract() and filters the text to find the total cost ($$$) ------
     @IBAction func didPressUpload(_ sender: Any) {
-        self.pickImage()
+        if self.uploadButton.currentTitle == "Upload" {
+            self.pickImage()
+        } else {
+            
+            if self.costs.isEmpty || self.selectedImages.isEmpty {
+                self.textractLabel.text = "Please select at least one receipt to send"
+            } else {
+                //MARK: Code for writing to the db belongs here as this becomes send button
+                print("Writing to db")
+            }
+        }
     }
     
     private func saveAndUpload(_ imageToDictionary: UIImage) {
@@ -125,6 +182,7 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         document?.s3Object = s3Object
         request.document = document
         textract.detectDocumentText(request).continueWith { (task) -> Any? in
+            var hasValue = true
             guard let result = task.result else {
                 let error =  task.error as NSError?
                 print("Should not produce error: \(error.debugDescription)")
@@ -134,12 +192,32 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             for block in blocks! {
                 if let text = block.text {
                     textFromTextract = textFromTextract + text
-                    print(text)
-                    DispatchQueue.main.async {
-                        if self.getTotalCost(text: text) {
-                            print("in the dispatch")
-                            if text.contains("$") { self.textractLabel.text = "Total: "+text }
-                            else { self.textractLabel.text = "Total: $"+text }
+                    if self.getTotalCost(text: text) {
+                        if (hasValue) {
+                            DispatchQueue.main.async {
+                                print(text)
+                                if text.contains("$") {
+                                    self.selectedImages.append(self.image.image!)
+                                    let tempText = text.replacingOccurrences(of: "$", with: "", options: NSString.CompareOptions.literal, range: nil)
+                                    print(tempText)
+                                    let doubleTempText = Double(tempText)!
+                                    self.costs.append(doubleTempText)
+                                    self.addToTotalCosts(cost: doubleTempText)
+                                    self.textractLabel.text = "Total: $\(self.totalCost)"
+                                    print("the count of the array -->>> \(self.selectedImages.count)")
+                                    self.uploadButton.setTitle("Send", for: UIControl.State.normal)
+                                }
+                                else {
+                                    let tempText = text
+                                    let doubleTempText = Double(tempText)!
+                                    self.costs.append(doubleTempText)
+                                    self.addToTotalCosts(cost: doubleTempText)
+                                    self.textractLabel.text = "Total: $\(self.totalCost)"
+                                    print("the count of the array -->>> \(self.selectedImages.count)")
+                                    self.uploadButton.setTitle("Send", for: UIControl.State.normal)
+                                }
+                            }
+                            hasValue = false
                         }
                     }
                 }
@@ -219,6 +297,12 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     }
     
     
+    //MARK: Manages the total
+    private func addToTotalCosts(cost: Double) {
+        self.totalCost += cost
+    }
+    
+    
     //MARK: Styles the home page UI ----------
     private func stylizeUI() {
         Utilities.stylizeLabel(visibleLabel: mainLabel)
@@ -229,5 +313,20 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         self.image.layer.masksToBounds = true;
     }
     
+}
+
+
+//MARK: UIImage -------
+extension UIImage {
+    static func from(color: UIColor) -> UIImage {
+        let rect = CGRect(x: 0, y: 0, width: 158, height: 234)
+        UIGraphicsBeginImageContext(rect.size)
+        let context = UIGraphicsGetCurrentContext()
+        context!.setFillColor(color.cgColor)
+        context!.fill(rect)
+        let img = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return img!
+    }
 }
 
