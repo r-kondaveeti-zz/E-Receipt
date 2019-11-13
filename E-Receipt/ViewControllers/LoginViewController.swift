@@ -17,6 +17,8 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var errorLabel: UILabel!
     
+    var userName: String!
+    
     @IBAction func didPressLogin(_ sender: Any) {
         view.endEditing(true)
         let error = validateFields()
@@ -35,7 +37,8 @@ class LoginViewController: UIViewController {
                     case .signedIn:
                         print("User is signed in.")
                         DispatchQueue.main.async {
-                            self.transitionToHome()
+                            //MARK: Check if the user is Ankit and transfer accordingly
+                            if AWSMobileClient.default().username! == "ankit99" { self.transitionToManager() } else { self.transitionToHome() }
                         }
                     case .smsMFA:
                         print("SMS message sent to \(signInResult.codeDetails!.destination!)")
@@ -86,6 +89,13 @@ class LoginViewController: UIViewController {
         DispatchQueue.main.async {
             self.errorLabel.text = "\(error)"
         }
+    }
+    
+    func transitionToManager() {
+        let managerViewController = storyboard?.instantiateViewController(identifier: Constants.Storyboard.managerViewController) as? ManagerViewController
+        view.window?.rootViewController = managerViewController
+        view.window?.makeKeyAndVisible()
+        print("Transition to Manager.....");
     }
     
 }

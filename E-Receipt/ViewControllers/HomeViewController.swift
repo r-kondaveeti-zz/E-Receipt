@@ -31,8 +31,10 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     @IBOutlet weak var minusIcon: UIImageView!
     
     var selectedImages = [UIImage]()
-    var costs = [Double]()
-    var totalCost: Double = 0.00
+    var costs = [Float]()
+    var totalCost: Float = 0.00
+    var userName: String!
+    var fileURLs = [URL]()
     
     //MARK: S3 and Textract setup -------
     let textract = AWSTextract(forKey: "USEast1Textract")
@@ -43,7 +45,7 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.userName = AWSMobileClient.default().username!
         userNameLabel.text = "\(AWSMobileClient.default().username!)"
         
         self.stylizeUI()
@@ -53,10 +55,10 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         personIconImage.addGestureRecognizer(tapGestureIcon)
         personIconImage.isUserInteractionEnabled = true
         
-        //Make history label tapable
-        let tapGestureHistoryLabel = UITapGestureRecognizer(target: self, action: #selector(HomeViewController.historyLabelTapped(gesture:)))
-        historyLabel.addGestureRecognizer(tapGestureHistoryLabel)
-        historyLabel.isUserInteractionEnabled = true
+        //        Make history label tapable
+        //        let tapGestureHistoryLabel = UITapGestureRecognizer(target: self, action: #selector(HomeViewController.historyLabelTapped(gesture:)))
+        //        historyLabel.addGestureRecognizer(tapGestureHistoryLabel)
+        //        historyLabel.isUserInteractionEnabled = true
         
         //Plus icon label tapable
         let tapGesturePlusIcon = UITapGestureRecognizer(target: self, action: #selector(HomeViewController.plusIconImageTapped(gesture:)))
@@ -72,16 +74,7 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     
     @objc func plusIconImageTapped(gesture: UIGestureRecognizer) {
         if (gesture.view as? UIImageView) != nil {
-            
-            //MARK: Open ImagePicker
-            
-            //MARK: Show selected image on the display
-            
-            //MARK: Send it to textract and get dollar amount
             pickImage()
-            
-            //MARK: add the image and total to the dictionary
-            
         }
     }
     
@@ -112,7 +105,6 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                 
                 //MARK: Make the last cost appear on the screen
                 self.textractLabel.text = "Total: $\(self.totalCost)"
-                
             }
         }
     }
@@ -131,12 +123,18 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         if self.uploadButton.currentTitle == "Upload" {
             self.pickImage()
         } else {
-            
             if self.costs.isEmpty || self.selectedImages.isEmpty {
                 self.textractLabel.text = "Please select at least one receipt to send"
             } else {
                 //MARK: Code for writing to the db belongs here as this becomes send button
                 print("Writing to db")
+                for index in 0...costs.count-1 {
+                    let values: [String] = ["\(self.userName!)", "Ankit", "\(self.fileURLs[index])", "\(self.costs[index])", "pending"]
+                    FMDBDatabase.insert(values: values, completion: {
+                        (success, error) in
+                        if success { print("values inserted!") }
+                    })
+                }
             }
         }
     }
@@ -144,8 +142,10 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     private func saveAndUpload(_ imageToDictionary: UIImage) {
         guard let image = self.image.image else {return}
         let data = image.pngData()
-        let remoteName = "test.png"
-        let fileURL = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(remoteName)
+        let remoteName = "\(ProcessInfo.processInfo.globallyUniqueString).png"
+        print("This is the changed remote name \(remoteName)")
+        let fileURL = URL(fileURLWithPath: NSHomeDirectory()).appendingPathComponent(remoteName)
+        self.fileURLs.append(fileURL)
         do {
             try data?.write(to: fileURL)
             localPath = fileURL
@@ -200,18 +200,19 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                                     self.selectedImages.append(self.image.image!)
                                     let tempText = text.replacingOccurrences(of: "$", with: "", options: NSString.CompareOptions.literal, range: nil)
                                     print(tempText)
-                                    let doubleTempText = Double(tempText)!
-                                    self.costs.append(doubleTempText)
-                                    self.addToTotalCosts(cost: doubleTempText)
+                                    let floatTempText = Float(tempText)!
+                                    self.costs.append(floatTempText)
+                                    self.addToTotalCosts(cost: floatTempText)
                                     self.textractLabel.text = "Total: $\(self.totalCost)"
                                     print("the count of the array -->>> \(self.selectedImages.count)")
                                     self.uploadButton.setTitle("Send", for: UIControl.State.normal)
                                 }
                                 else {
+                                    self.selectedImages.append(self.image.image!)
                                     let tempText = text
-                                    let doubleTempText = Double(tempText)!
-                                    self.costs.append(doubleTempText)
-                                    self.addToTotalCosts(cost: doubleTempText)
+                                    let floatTempText = Float(tempText)!
+                                    self.costs.append(floatTempText)
+                                    self.addToTotalCosts(cost: floatTempText)
                                     self.textractLabel.text = "Total: $\(self.totalCost)"
                                     print("the count of the array -->>> \(self.selectedImages.count)")
                                     self.uploadButton.setTitle("Send", for: UIControl.State.normal)
@@ -239,7 +240,6 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     //MARK: These call back functions gets called whenever the user performs tap gesture on the image icons, label (history, person) ---------
     @objc func personIconImageTapped(gesture: UIGestureRecognizer) {
         if (gesture.view as? UIImageView) != nil {
-            AWSMobileClient.default().signOut()
             self.transitionToLogin()
         }
     }
@@ -254,9 +254,11 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     }
     
     func transitionToLogin() {
+        AWSMobileClient.default().signOut()
         let loginViewController = storyboard?.instantiateViewController(identifier: Constants.Storyboard.loginViewController) as? LoginViewController
         view.window?.rootViewController = loginViewController
         view.window?.makeKeyAndVisible()
+        print("Transition to login.....");
     }
     
     func transitionToHistory() {
@@ -298,7 +300,7 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     
     
     //MARK: Manages the total
-    private func addToTotalCosts(cost: Double) {
+    private func addToTotalCosts(cost: Float) {
         self.totalCost += cost
     }
     

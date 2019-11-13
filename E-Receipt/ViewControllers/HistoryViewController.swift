@@ -16,7 +16,6 @@ class HistoryViewController: UIViewController {
     
     override func viewDidLoad() {
         style()
-        print(AWSMobileClient.default().username!)
     }
     
     private func style() {

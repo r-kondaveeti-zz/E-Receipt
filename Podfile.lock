@@ -21,6 +21,12 @@ PODS:
   - AWSUserPoolsSignIn (2.12.0):
     - AWSAuthCore (= 2.12.0)
     - AWSCognitoIdentityProvider (= 2.12.0)
+  - FMDB (2.7.5):
+    - FMDB/standard (= 2.7.5)
+  - FMDB/standard (2.7.5)
+  - SQLite.swift (0.12.2):
+    - SQLite.swift/standard (= 0.12.2)
+  - SQLite.swift/standard (0.12.2)
 
 DEPENDENCIES:
   - AWSAuthUI
@@ -29,6 +35,8 @@ DEPENDENCIES:
   - AWSS3
   - AWSTextract
   - AWSUserPoolsSignIn
+  - FMDB
+  - SQLite.swift (~> 0.12.0)
 
 SPEC REPOS:
   trunk:
@@ -42,6 +50,8 @@ SPEC REPOS:
     - AWSS3
     - AWSTextract
     - AWSUserPoolsSignIn
+    - FMDB
+    - SQLite.swift
 
 SPEC CHECKSUMS:
   AWSAuthCore: 547617e1ed76a699b56018105133e23f0fddc8e2
@@ -54,7 +64,9 @@ SPEC CHECKSUMS:
   AWSS3: 4cd97615f756098bfa449e99bf0acc7bc6a31510
   AWSTextract: 12c1a34f52f092e855535e9532dadc8d2d61f48d
   AWSUserPoolsSignIn: 070293a3e73401bbc35fc639244b555b9d9f1aa8
+  FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
+  SQLite.swift: d2b4642190917051ce6bd1d49aab565fe794eea3
 
-PODFILE CHECKSUM: a7b56057f92bc6ce31ecdecba26de06fc88ce8aa
+PODFILE CHECKSUM: a6242f360b454aa72197d76c629feaf05681a4ae
 
 COCOAPODS: 1.8.1

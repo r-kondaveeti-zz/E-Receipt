@@ -1,0 +1,9 @@
+{
+	"auth": {
+		"ereceipte533a1f5": {
+			"service": "Cognito",
+			"providerPlugin": "awscloudformation",
+			"dependsOn": []
+		}
+	}
+}

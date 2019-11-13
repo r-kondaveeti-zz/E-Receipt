@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		97DBE277E6535FDF923635FE /* Pods_E_Receipt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69F922B530BF6C1EAD53470D /* Pods_E_Receipt.framework */; };
+		9914138D2375D52F00A90110 /* ManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9914138C2375D52F00A90110 /* ManagerViewController.swift */; };
 		993B8372236146B1008DD8BC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993B8371236146B1008DD8BC /* AppDelegate.swift */; };
 		993B8374236146B1008DD8BC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993B8373236146B1008DD8BC /* SceneDelegate.swift */; };
 		993B8376236146B1008DD8BC /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993B8375236146B1008DD8BC /* HomeViewController.swift */; };
@@ -23,12 +24,16 @@
 		99679D03236FEB97002AC1A3 /* awsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 99679D02236FEB97002AC1A3 /* awsconfiguration.json */; };
 		99679D05236FF150002AC1A3 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99679D04236FF150002AC1A3 /* Constants.swift */; };
 		99679D07237080D3002AC1A3 /* ConfirmAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99679D06237080D3002AC1A3 /* ConfirmAccountViewController.swift */; };
+		9990A3652374849F008673AE /* SqliteDbStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9990A3642374849F008673AE /* SqliteDbStore.swift */; };
+		9990A36823748CBE008673AE /* Receipt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9990A36723748CBE008673AE /* Receipt.swift */; };
+		99D87B2A2379C4C2005BDBC4 /* FMDBDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D87B292379C4C2005BDBC4 /* FMDBDatabase.swift */; };
 		99EB324C2371D4B900086440 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99EB324B2371D4B900086440 /* HistoryViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		3D444DD921EC9C91C1793DBA /* Pods-E-Receipt.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-E-Receipt.release.xcconfig"; path = "Target Support Files/Pods-E-Receipt/Pods-E-Receipt.release.xcconfig"; sourceTree = "<group>"; };
 		69F922B530BF6C1EAD53470D /* Pods_E_Receipt.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_E_Receipt.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9914138C2375D52F00A90110 /* ManagerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerViewController.swift; sourceTree = "<group>"; };
 		993B836E236146B1008DD8BC /* E-Receipt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "E-Receipt.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		993B8371236146B1008DD8BC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		993B8373236146B1008DD8BC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -46,6 +51,10 @@
 		99679D02236FEB97002AC1A3 /* awsconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = awsconfiguration.json; path = ../../awsconfiguration.json; sourceTree = "<group>"; };
 		99679D04236FF150002AC1A3 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Constants.swift; path = ../../../../Downloads/CustomLoginDemo/CustomLoginDemo/Helpers/Constants.swift; sourceTree = "<group>"; };
 		99679D06237080D3002AC1A3 /* ConfirmAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmAccountViewController.swift; sourceTree = "<group>"; };
+		9990A3642374849F008673AE /* SqliteDbStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SqliteDbStore.swift; sourceTree = "<group>"; };
+		9990A36723748CBE008673AE /* Receipt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Receipt.swift; sourceTree = "<group>"; };
+		99D87B292379C4C2005BDBC4 /* FMDBDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FMDBDatabase.swift; sourceTree = "<group>"; };
+		99D87B2B2379D299005BDBC4 /* E-Receipt.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "E-Receipt.entitlements"; sourceTree = "<group>"; };
 		99EB324B2371D4B900086440 /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		F7BDFE30A958ADAA195B9EA4 /* Pods-E-Receipt.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-E-Receipt.debug.xcconfig"; path = "Target Support Files/Pods-E-Receipt/Pods-E-Receipt.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -84,7 +93,9 @@
 		993B8370236146B1008DD8BC /* E-Receipt */ = {
 			isa = PBXGroup;
 			children = (
+				99D87B2B2379D299005BDBC4 /* E-Receipt.entitlements */,
 				99679D02236FEB97002AC1A3 /* awsconfiguration.json */,
+				9990A36623748C92008673AE /* Models */,
 				99679CFF236FC1A6002AC1A3 /* ViewControllers */,
 				99679CF4236F5F17002AC1A3 /* Helpers */,
 				993B8371236146B1008DD8BC /* AppDelegate.swift */,
@@ -111,6 +122,8 @@
 			children = (
 				99679D04236FF150002AC1A3 /* Constants.swift */,
 				99679CF7236F629F002AC1A3 /* Utilities.swift */,
+				9990A3642374849F008673AE /* SqliteDbStore.swift */,
+				99D87B292379C4C2005BDBC4 /* FMDBDatabase.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -125,8 +138,17 @@
 				99679D00236FE4F0002AC1A3 /* NavigationController.swift */,
 				99679D06237080D3002AC1A3 /* ConfirmAccountViewController.swift */,
 				99EB324B2371D4B900086440 /* HistoryViewController.swift */,
+				9914138C2375D52F00A90110 /* ManagerViewController.swift */,
 			);
 			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		9990A36623748C92008673AE /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				9990A36723748CBE008673AE /* Receipt.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		F5F203364BB33A3BAEA11FC5 /* Pods */ = {
@@ -257,14 +279,18 @@
 				99679CFC236FBFD2002AC1A3 /* SignUpViewController.swift in Sources */,
 				99679D07237080D3002AC1A3 /* ConfirmAccountViewController.swift in Sources */,
 				99679D01236FE4F0002AC1A3 /* NavigationController.swift in Sources */,
+				9990A36823748CBE008673AE /* Receipt.swift in Sources */,
 				993B8376236146B1008DD8BC /* HomeViewController.swift in Sources */,
 				993B8372236146B1008DD8BC /* AppDelegate.swift in Sources */,
+				9914138D2375D52F00A90110 /* ManagerViewController.swift in Sources */,
 				99EB324C2371D4B900086440 /* HistoryViewController.swift in Sources */,
 				99679CF8236F629F002AC1A3 /* Utilities.swift in Sources */,
 				99679CFE236FC114002AC1A3 /* ViewController.swift in Sources */,
+				99D87B2A2379C4C2005BDBC4 /* FMDBDatabase.swift in Sources */,
 				99679CFA236FBFB0002AC1A3 /* LoginViewController.swift in Sources */,
 				993B8374236146B1008DD8BC /* SceneDelegate.swift in Sources */,
 				99679D05236FF150002AC1A3 /* Constants.swift in Sources */,
+				9990A3652374849F008673AE /* SqliteDbStore.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -409,6 +435,7 @@
 			baseConfigurationReference = F7BDFE30A958ADAA195B9EA4 /* Pods-E-Receipt.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "E-Receipt/E-Receipt.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4HKD6YK7Z8;
 				INFOPLIST_FILE = "E-Receipt/Info.plist";
@@ -428,6 +455,7 @@
 			baseConfigurationReference = 3D444DD921EC9C91C1793DBA /* Pods-E-Receipt.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "E-Receipt/E-Receipt.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4HKD6YK7Z8;
 				INFOPLIST_FILE = "E-Receipt/Info.plist";

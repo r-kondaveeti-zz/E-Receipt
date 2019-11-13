@@ -1,0 +1,19 @@
+{
+    "dev": {
+        "awscloudformation": {
+            "AuthRoleName": "e-receipt-dev-20191101112756-authRole",
+            "UnauthRoleArn": "arn:aws:iam::084486557089:role/e-receipt-dev-20191101112756-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::084486557089:role/e-receipt-dev-20191101112756-authRole",
+            "Region": "us-east-2",
+            "DeploymentBucketName": "e-receipt-dev-20191101112756-deployment",
+            "UnauthRoleName": "e-receipt-dev-20191101112756-unauthRole",
+            "StackName": "e-receipt-dev-20191101112756",
+            "StackId": "arn:aws:cloudformation:us-east-2:084486557089:stack/e-receipt-dev-20191101112756/9137e5e0-fcc4-11e9-8a78-022c6f51bf82"
+        },
+        "categories": {
+            "auth": {
+                "ereceipte533a1f5": {}
+            }
+        }
+    }
+}

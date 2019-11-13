@@ -11,5 +11,7 @@ target 'E-Receipt' do
     pod 'AWSUserPoolsSignIn'
     pod 'AWSAuthUI'
     pod 'AWSMobileClient'
+    pod 'SQLite.swift', '~> 0.12.0'
+    pod 'FMDB'
   # Pods for E-Receipt
 end
