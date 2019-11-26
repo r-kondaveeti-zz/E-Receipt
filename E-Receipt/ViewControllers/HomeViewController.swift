@@ -5,9 +5,6 @@
 //  Created by Radithya Reddy on 10/23/19.
 //  Copyright © 2019 Yash Tech. All rights reserved.
 
-//MARK: Add the images with sucessful total extraction to an Array and totals to a different one --> Done
-//MARK: Pop the array when user hits minus and display the image of the last element in the array and total - poped cost --> Done
-//MARK: When user hits save then write it into the db -->
 import UIKit
 import Photos
 import AWSS3
@@ -81,8 +78,6 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     
     @objc func minusIconImageTapped(gesture: UIGestureRecognizer) {
         if (gesture.view as? UIImageView) != nil {
-            
-            //MARK: If the there is no last Image or Cost display some default image and cost!!
             if(self.costs.isEmpty || self.selectedImages.isEmpty)  {
                 print("is empty")
                 self.image.image = UIImage.from(color: .white)
@@ -90,20 +85,10 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                 self.costs.removeAll()
                 self.selectedImages.removeAll()
             } else {
-                
-                //MARK: Pop from selectedImages
                 let _ = self.selectedImages.popLast()
-                
-                //MARK: Make the last image appear on screen
                 self.image.image = self.selectedImages.last
-                
-                //MARK: Pop from costs
                 let lastItemCost = self.costs.popLast()
-                
-                //MARK: Remove the last cost from the total cost
                 self.totalCost -= lastItemCost!
-                
-                //MARK: Make the last cost appear on the screen
                 self.textractLabel.text = "Total: $\(self.totalCost)"
             }
         }
@@ -117,8 +102,7 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     }
     
     
-    
-    //MARK: Saves the document and uploads it to the s3 and invokes sendToTextract() and filters the text to find the total cost ($$$) ------
+   
     @IBAction func didPressUpload(_ sender: Any) {
         if self.uploadButton.currentTitle == "Upload" {
             self.pickImage()
@@ -126,7 +110,6 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             if self.costs.isEmpty || self.selectedImages.isEmpty {
                 self.textractLabel.text = "Please select at least one receipt to send"
             } else {
-                //MARK: Code for writing to the db belongs here as this becomes send button
                 print("Writing to db")
                 for index in 0...costs.count-1 {
                     let values: [String] = ["\(self.userName!)", "Ankit", "\(self.fileURLs[index])", "\(self.costs[index])", "pending"]
@@ -236,8 +219,7 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         else { return false }
     }
     
-    
-    //MARK: These call back functions gets called whenever the user performs tap gesture on the image icons, label (history, person) ---------
+  
     @objc func personIconImageTapped(gesture: UIGestureRecognizer) {
         if (gesture.view as? UIImageView) != nil {
             self.transitionToLogin()

@@ -37,7 +37,6 @@ class LoginViewController: UIViewController {
                     case .signedIn:
                         print("User is signed in.")
                         DispatchQueue.main.async {
-                            //MARK: Check if the user is Ankit and transfer accordingly
                             if AWSMobileClient.default().username! == "ankit99" { self.transitionToManager() } else { self.transitionToHome() }
                         }
                     case .smsMFA:

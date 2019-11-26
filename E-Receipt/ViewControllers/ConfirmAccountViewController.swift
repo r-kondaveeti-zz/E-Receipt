@@ -7,7 +7,6 @@
 //
 
 
-// MARK: get the username from the Login
 import Foundation
 import UIKit
 import AWSMobileClient
